@@ -237,7 +237,7 @@ function dequeue () {
     runCmd.apply(null, r)
   }
 }
-
+// 核心的npm命令执行器函数
 function runCmd (note, cmd, pkg, env, stage, wd, opts, cb) {
   if (running) {
     queue.push([note, cmd, pkg, env, stage, wd, opts, cb])
@@ -307,7 +307,7 @@ const getSpawnArgs = ({ cmd, wd, opts, uid, gid, unsafe, env }) => {
 }
 
 exports._getSpawnArgs = getSpawnArgs
-
+// runCmd方法底层子私有方法
 function runCmd_ (cmd, pkg, env, wd, opts, stage, unsafe, uid, gid, cb_) {
   function cb (er) {
     cb_.apply(null, arguments)
@@ -320,7 +320,7 @@ function runCmd_ (cmd, pkg, env, wd, opts, stage, unsafe, uid, gid, cb_) {
   opts.log.verbose('lifecycle', logid(pkg, stage), 'PATH:', env[PATH])
   opts.log.verbose('lifecycle', logid(pkg, stage), 'CWD:', wd)
   opts.log.silly('lifecycle', logid(pkg, stage), 'Args:', args)
-
+  // 通过lib/spawn.js来完成调用
   var proc = spawn(sh, args, conf, opts.log)
 
   proc.on('error', procError)

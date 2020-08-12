@@ -1,3 +1,35 @@
+
+# 源码分析
+
+## 文件结构
+
+``` bash
+/Users/liufang/openSource/FunnyLiu/npm-lifecycle
+├── index.js - 入口文件，核心方法runCmd，调用spawn.js来执行命令
+├── lib
+|  └── spawn.js - 基于原生child_process模块来执行子shell命令
+├── node-gyp-bin
+|  ├── node-gyp
+|  └── node-gyp.cmd
+
+directory: 7 file: 20
+
+ignored: directory (2)
+
+```
+
+## 外部模块依赖
+
+请在： http://npm.broofa.com?q=npm-lifecycle 查看
+
+## 内部模块依赖
+
+![img](./inner.svg)
+  
+## 功能说明
+
+主要负责npm包真正执行命令时的shell进程
+
 # Note: pending imminent deprecation
 
 **This module will be deprecated once npm v7 is released.  Please do not rely
