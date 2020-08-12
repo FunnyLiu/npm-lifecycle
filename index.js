@@ -27,13 +27,14 @@ const delimiter = path.delimiter
 
 // windows calls its path 'Path' usually, but this is not guaranteed.
 // merge them all together in the order they appear in the object.
+//merge环境变量
 const mergePath = env =>
   Object.keys(env).filter(p => /^path$/i.test(p) && env[p])
     .map(p => env[p].split(delimiter))
     .reduce((set, p) => set.concat(p.filter(p => !set.includes(p))), [])
     .join(delimiter)
 exports._mergePath = mergePath
-
+//设置环境变量
 const setPathEnv = (env, path) => {
   // first ensure that the canonical value is set.
   env[PATH] = path
@@ -118,7 +119,8 @@ function lifecycle_ (pkg, stage, wd, opts, env, cb) {
   var pathArr = []
   var p = wd.split(/[\\/]node_modules[\\/]/)
   var acc = path.resolve(p.shift())
-
+  // 在当前目录的 node_modules/.bin 子目录加入到 PATH 变量，
+  // 执行结束后，再将 PATH 变量恢复原样。
   p.forEach(function (pp) {
     pathArr.unshift(path.join(acc, 'node_modules', '.bin'))
     acc = path.join(acc, 'node_modules', pp)

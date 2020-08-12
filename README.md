@@ -28,7 +28,7 @@ ignored: directory (2)
   
 ## 功能说明
 
-主要负责npm包真正执行命令时的shell进程
+主要负责npm包真正执行命令时的shell进程，需要注意的是，**执行npm run时是在当前目录的 node_modules/.bin 子目录加入到 PATH 变量，执行结束后，再将 PATH 变量恢复原样**（相关处理在lifecycle_函数中）。
 
 # Note: pending imminent deprecation
 
